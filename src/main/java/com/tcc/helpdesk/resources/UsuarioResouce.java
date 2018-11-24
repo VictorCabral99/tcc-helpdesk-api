@@ -2,6 +2,7 @@ package com.tcc.helpdesk.resources;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,6 +33,7 @@ public class UsuarioResouce {
 		return ResponseEntity.ok().body(obj);
 	}
 	
+	@CrossOrigin
 	@RequestMapping(value="/autenticar", method=RequestMethod.POST)
 	public ResponseEntity<String> autenticar(@RequestBody AutenticarDTO autenticar){
 		Usuario obj = service.findByEmail(autenticar.getEmail());
