@@ -7,6 +7,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.tcc.helpdesk.domain.enums.StatusChamado;
+import com.tcc.helpdesk.domain.enums.TipoChamado;
 
 @Entity
 public class Chamado implements Serializable {
@@ -15,22 +21,39 @@ public class Chamado implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
-	private String desc_chamado;
-	private Date dt_inicio;
-	private Date dt_fim;
+	
+	@ManyToOne
+	@JoinColumn(name="id_cliente")
+	private Cliente cliente;
+	
+	private Integer tipo;
+	private Integer status;
+	@ManyToOne
+	@JoinColumn(name="id_analista")
+	private Analista analista;
+	
+	private String descricao;
+	@JsonFormat(pattern="dd/MM/yyyy")
+	private Date dataCriacao;
+	@JsonFormat(pattern="dd/MM/yyyy")
+	private Date dataFinalizacao;
 	
 	public Chamado() {
 		
 	}
 
-	public Chamado(Integer id, String desc_chamado, Date dt_inicio, Date dt_fim) {
+	public Chamado(Integer id, Cliente cliente, Integer tipo, Integer status, Analista analista, String descricao,Date dataCriacao, Date dataFinalizacao) {
 		super();
 		this.id = id;
-		this.desc_chamado = desc_chamado;
-		this.dt_inicio = dt_inicio;
-		this.dt_fim = dt_fim;
+		this.cliente = cliente;
+		this.tipo = tipo;
+		this.status = status;
+		this.analista = analista;
+		this.descricao = descricao;
+		this.dataCriacao = dataCriacao;
+		this.dataFinalizacao = dataFinalizacao;
 	}
-
+	
 	public Integer getId() {
 		return id;
 	}
@@ -38,31 +61,63 @@ public class Chamado implements Serializable {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-
-	public String getDesc_chamado() {
-		return desc_chamado;
+	
+	public Cliente getCliente() {
+		return cliente;
 	}
 
-	public void setDesc_chamado(String desc_chamado) {
-		this.desc_chamado = desc_chamado;
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+	
+	public TipoChamado getTipo() {
+		return TipoChamado.toEnum(tipo);
 	}
 
-	public Date getDt_inicio() {
-		return dt_inicio;
+	public void setTipo(TipoChamado tipo) {
+		this.tipo = tipo.getCod();
+	}
+	
+	public StatusChamado getStatus() {
+		return StatusChamado.toEnum(status);
 	}
 
-	public void setDt_inicio(Date dt_inicio) {
-		this.dt_inicio = dt_inicio;
+	public void setStatus(StatusChamado status) {
+		this.status = status.getCod();
+	}
+	
+	public Analista getAnalista() {
+		return analista;
 	}
 
-	public Date getDt_fim() {
-		return dt_fim;
+	public void setAnalista(Analista analista) {
+		this.analista = analista;
+	}
+	
+	public String getDescricao() {
+		return descricao;
 	}
 
-	public void setDt_fim(Date dt_fim) {
-		this.dt_fim = dt_fim;
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
 	}
 
+	public Date getDataCriacao() {
+		return dataCriacao;
+	}
+
+	public void setDataCriacao(Date dataCriacao) {
+		this.dataCriacao = dataCriacao;
+	}
+	
+	public Date getDataFinalizacao() {
+		return dataFinalizacao;
+	}
+
+	public void setDataFinalizacao(Date dataFinalizacao) {
+		this.dataFinalizacao = dataFinalizacao;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -87,5 +142,4 @@ public class Chamado implements Serializable {
 			return false;
 		return true;
 	}
-	
 }
