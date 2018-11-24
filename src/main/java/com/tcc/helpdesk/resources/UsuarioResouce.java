@@ -1,5 +1,8 @@
 package com.tcc.helpdesk.resources;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.tcc.helpdesk.domain.Usuario;
 import com.tcc.helpdesk.dto.AutenticarDTO;
+import com.tcc.helpdesk.dto.UsuarioDTO;
 import com.tcc.helpdesk.services.UsuarioService;
 
 @RestController
@@ -21,12 +25,14 @@ public class UsuarioResouce {
 	@Autowired
 	private UsuarioService service;
 	
+	@CrossOrigin
 	@RequestMapping(value="/{id}",method=RequestMethod.GET)
 	public ResponseEntity<?> find(@PathVariable Integer id){
 		Usuario obj = service.find(id);
 		return ResponseEntity.ok().body(obj);
 	}
 	
+	@CrossOrigin
 	@RequestMapping(value="/email/{email}", method=RequestMethod.GET)
 	public ResponseEntity<Usuario> find(@RequestParam(value="value") String email){
 		Usuario obj = service.findByEmail(email);
@@ -42,5 +48,13 @@ public class UsuarioResouce {
 		}else {
 			return ResponseEntity.badRequest().body("Login inválido");
 		}
+	}
+	
+	@CrossOrigin
+	@RequestMapping(method=RequestMethod.GET)
+	public ResponseEntity<List<UsuarioDTO>> findAll (){
+		List<Usuario> list = service.findAll();
+		List<UsuarioDTO> listDto = list.stream().map(obj -> new UsuarioDTO(obj)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(listDto);
 	}
 }
