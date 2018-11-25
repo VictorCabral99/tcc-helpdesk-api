@@ -1,5 +1,6 @@
 package com.tcc.helpdesk.services;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -10,6 +11,10 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.tcc.helpdesk.domain.Usuario;
+import com.tcc.helpdesk.domain.enums.PerfilUsuario;
+import com.tcc.helpdesk.domain.enums.StatusUsuario;
+import com.tcc.helpdesk.dto.NewUsuarioDTO;
+import com.tcc.helpdesk.dto.UsuarioDTO;
 import com.tcc.helpdesk.repositories.UsuarioRepository;
 import com.tcc.helpdesk.services.exceptions.DataIntegrityException;
 import com.tcc.helpdesk.services.exceptions.ObjectNotFoundException;
@@ -61,9 +66,26 @@ public class UsuarioService {
 		return obj;
 	}
 	
+	public Usuario fromDTO(NewUsuarioDTO objDto) {
+		StatusUsuario status = StatusUsuario.toEnum(objDto.getStatus());
+		PerfilUsuario perfil = PerfilUsuario.toEnum(objDto.getPerfil());
+		return new Usuario(objDto.getId(),objDto.getEmail(),objDto.getSenha(),new Date(),status,perfil);
+	}
+	
+	public Usuario fromDTO(UsuarioDTO objDto) {
+		StatusUsuario status = StatusUsuario.toEnum(objDto.getStatus());
+		PerfilUsuario perfil = PerfilUsuario.toEnum(objDto.getPerfil());
+		Usuario obj = find(objDto.getId());
+		obj.setEmail(objDto.getEmail());
+		obj.setPerfil(perfil);
+		obj.setStatus(status);
+		return obj;
+	}
+	
 	private void updateData(Usuario newObj, Usuario obj) {
 		newObj.setEmail(obj.getEmail());
-		newObj.setSenha(obj.getSenha());
+		newObj.setPerfil(obj.getPerfil());
+		newObj.setStatus(obj.getStatus());
 	}
 	
 }
