@@ -2,8 +2,9 @@ package com.tcc.helpdesk.domain.enums;
 
 public enum PerfilUsuario {
 	ADMIN(1,"Administrador"),
-	ANALIST(2,"Gerente"),
-	CUSTOMER(3,"Analista");
+	GERENTE(2,"Gerente"),
+	ANALIST1(3,"Analista1"),
+	ANALIST2(4,"Analista2");
 	
 	private int cod;
 	private String descricao;
