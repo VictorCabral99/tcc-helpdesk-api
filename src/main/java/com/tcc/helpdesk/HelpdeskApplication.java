@@ -43,10 +43,11 @@ public class HelpdeskApplication implements CommandLineRunner{
 		*/
 		
 		Usuario user1 = new Usuario(null,"vyctorcabral@gmail.com","Teste123#",init,StatusUsuario.ACTIVE,PerfilUsuario.ADMIN);
-		Usuario user2 = new Usuario(null,"igorrocha@gmail.com","Teste123#",init,StatusUsuario.ACTIVE,PerfilUsuario.ANALIST);
-		Usuario user3 = new Usuario(null,"luiznunes@gmail.com","Teste123#",init,StatusUsuario.ACTIVE,PerfilUsuario.CUSTOMER);
+		Usuario user2 = new Usuario(null,"igorrocha@gmail.com","Teste123#",init,StatusUsuario.ACTIVE,PerfilUsuario.GERENTE);
+		Usuario user3 = new Usuario(null,"luiznunes@gmail.com","Teste123#",init,StatusUsuario.ACTIVE,PerfilUsuario.ANALIST2);
+		Usuario user4 = new Usuario(null,"isaqueamaral@gmail.com","Teste123#",init,StatusUsuario.ACTIVE,PerfilUsuario.ANALIST1);
 		
-		usuarioRepository.saveAll(Arrays.asList(user1,user2,user3));
+		usuarioRepository.saveAll(Arrays.asList(user1,user2,user3,user4));
 		
 	}
 }
