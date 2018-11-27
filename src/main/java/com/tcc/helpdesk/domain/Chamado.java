@@ -10,9 +10,13 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.tcc.helpdesk.domain.enums.StatusChamado;
 import com.tcc.helpdesk.domain.enums.TipoChamado;
+import com.tcc.helpdesk.services.ClienteService;
+import com.tcc.helpdesk.services.UsuarioService;
 
 @Entity
 public class Chamado implements Serializable {
@@ -25,13 +29,15 @@ public class Chamado implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="id_cliente")
 	private Cliente cliente;
-	
 	private Integer tipo;
 	private Integer status;
 	@ManyToOne
-	@JoinColumn(name="id_analista")
-	private Analista analista;
-	
+	@JoinColumn(name="id_create_usuario")
+	private Usuario usuarioCriador;
+	@ManyToOne
+	@JoinColumn(name="id_usuario_responsavel")
+	private Usuario usuarioResponsavel;
+	private String titulo;
 	private String descricao;
 	@JsonFormat(pattern="dd/MM/yyyy")
 	private Date dataCriacao;
@@ -42,26 +48,30 @@ public class Chamado implements Serializable {
 		
 	}
 
-	public Chamado(Integer id, Cliente cliente, Integer tipo, Integer status, Analista analista, String descricao,Date dataCriacao, Date dataFinalizacao) {
+	
+	public Chamado(Integer id, Cliente cliente, Integer tipo, Integer status, Usuario usuarioCriador,
+			Usuario usuarioResponsavel, String titulo, String descricao, Date dataCriacao, Date dataFinalizacao) {
 		super();
 		this.id = id;
 		this.cliente = cliente;
 		this.tipo = tipo;
 		this.status = status;
-		this.analista = analista;
+		this.usuarioCriador = usuarioCriador;
+		this.usuarioResponsavel = usuarioResponsavel;
+		this.titulo = titulo;
 		this.descricao = descricao;
 		this.dataCriacao = dataCriacao;
 		this.dataFinalizacao = dataFinalizacao;
-	}
 	
-	public Integer getId() {
+	}
+	public Integer getId() {
 		return id;
 	}
 
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	
+
 	public Cliente getCliente() {
 		return cliente;
 	}
@@ -69,7 +79,7 @@ public class Chamado implements Serializable {
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
-	
+
 	public TipoChamado getTipo() {
 		return TipoChamado.toEnum(tipo);
 	}
@@ -85,15 +95,31 @@ public class Chamado implements Serializable {
 	public void setStatus(StatusChamado status) {
 		this.status = status.getCod();
 	}
-	
-	public Analista getAnalista() {
-		return analista;
+
+	public Usuario getUsuarioCriador() {		
+		return usuarioCriador;
 	}
 
-	public void setAnalista(Analista analista) {
-		this.analista = analista;
+	public void setUsuarioCriador(Usuario usuarioCriador) {
+		this.usuarioCriador = usuarioCriador;
+	}
+
+	public Usuario getUsuarioResponsavel() {
+		return usuarioResponsavel;
+	}
+
+	public void setUsuarioResponsavel(Usuario usuarioResponsavel) {
+		this.usuarioResponsavel = usuarioResponsavel;
 	}
 	
+	public String getTitulo() {
+		return titulo;
+	}
+
+	public void setTitulo(String titulo) {
+		this.titulo = titulo;
+	}
+
 	public String getDescricao() {
 		return descricao;
 	}
@@ -109,7 +135,7 @@ public class Chamado implements Serializable {
 	public void setDataCriacao(Date dataCriacao) {
 		this.dataCriacao = dataCriacao;
 	}
-	
+
 	public Date getDataFinalizacao() {
 		return dataFinalizacao;
 	}
@@ -142,4 +168,4 @@ public class Chamado implements Serializable {
 			return false;
 		return true;
 	}
-}
+}

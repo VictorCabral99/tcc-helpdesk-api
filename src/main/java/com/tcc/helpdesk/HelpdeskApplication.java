@@ -1,5 +1,6 @@
 package com.tcc.helpdesk;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 
@@ -8,10 +9,13 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import com.tcc.helpdesk.domain.Chamado;
+import com.tcc.helpdesk.domain.Cliente;
 import com.tcc.helpdesk.domain.Usuario;
 import com.tcc.helpdesk.domain.enums.PerfilUsuario;
 import com.tcc.helpdesk.domain.enums.StatusUsuario;
 import com.tcc.helpdesk.repositories.ChamadoRepository;
+import com.tcc.helpdesk.repositories.ClienteRepository;
 import com.tcc.helpdesk.repositories.UsuarioRepository;
 
 @SpringBootApplication
@@ -19,6 +23,8 @@ public class HelpdeskApplication implements CommandLineRunner{
 
 	@Autowired
 	private ChamadoRepository chamadoRepository;
+	@Autowired
+	private ClienteRepository clienteRepository;
 	@Autowired
 	private UsuarioRepository usuarioRepository;
 	
@@ -31,17 +37,6 @@ public class HelpdeskApplication implements CommandLineRunner{
 		Date init = new Date();
 		Date fim = new Date();
 		
-		/*
-		Chamado chamado1 = new Chamado(null,"Problemas de memória",init,fim);
-		Chamado chamado2 = new Chamado(null,"Tela Azul",init,fim);
-		Chamado chamado3 = new Chamado(null,"Impressora não funciona",init,fim);
-		Chamado chamado4 = new Chamado(null,"Mouse quebrou",init,fim);
-		Chamado chamado5 = new Chamado(null,"Mancha na tela",init,fim);
-		Chamado chamado6 = new Chamado(null,"Sem som",init,fim);
-		
-		chamadoRepository.saveAll(Arrays.asList(chamado1,chamado2,chamado3,chamado4,chamado5,chamado6));
-		*/
-		
 		Usuario user1 = new Usuario(null,"vyctorcabral@gmail.com","Teste123#",init,StatusUsuario.ACTIVE,PerfilUsuario.ADMIN);
 		Usuario user2 = new Usuario(null,"igorrocha@gmail.com","Teste123#",init,StatusUsuario.ACTIVE,PerfilUsuario.GERENTE);
 		Usuario user3 = new Usuario(null,"luiznunes@gmail.com","Teste123#",init,StatusUsuario.ACTIVE,PerfilUsuario.ANALIST2);
@@ -49,5 +44,17 @@ public class HelpdeskApplication implements CommandLineRunner{
 		
 		usuarioRepository.saveAll(Arrays.asList(user1,user2,user3,user4));
 		
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		Date nascimento = sdf.parse("27/07/2006");
+		
+		Cliente customer1 = new Cliente(null,"cliente","1", "469410248-60", 1, nascimento, "06332130", "Rua Cataguá", "345", "Casa 14A", "Jardim Santa Tereza", "Carapicuiba", "SP", init, user4);
+		Cliente customer2 = new Cliente(null,"cliente","2", "469410248-60", 1, nascimento, "06332130", "Rua Cataguá", "345", "Casa 14A", "Jardim Santa Tereza", "Carapicuiba", "SP", init, user4);
+		clienteRepository.saveAll(Arrays.asList(customer1,customer2));
+		
+		Chamado chamado1 = new Chamado(null, customer1, 1, 1, user4,user3, "Como fechar o word?","Abri o word e agora não sei como fechar, vocês poderiam me explicar como fazer isso? ", init, fim);
+		Chamado chamado2 = new Chamado(null, customer2, 2, 2, user4,user3, "Precisando de um monitor melhor","Quando uso o Photoshop a tela está horrivel em questão de resolução, preciso de uma tela melhor.", init, fim);
+		Chamado chamado3 = new Chamado(null, customer1, 3, 3, user4,user2, "Teclado parou de funcionar","Meu teclado parou, poderia me arranjar um novo", init, fim);
+		Chamado chamado4 = new Chamado(null, customer2, 3, 4, user4,user4, "Tela Azul","quando estou mexendo no computador ele do nada da tela azul, vocês poderiam me ajudar?", init, fim);
+		chamadoRepository.saveAll(Arrays.asList(chamado1,chamado2,chamado3,chamado4));
 	}
 }
