@@ -49,7 +49,7 @@ public class UsuarioResouce {
 	public ResponseEntity<String> autenticar(@RequestBody AutenticarDTO autenticar){
 		Usuario obj = service.findByEmail(autenticar.getEmail());
 		if(obj.getSenha().equals(autenticar.getSenha())){
-			return ResponseEntity.accepted().body("Autenticado," + autenticar.getEmail() + "," + autenticar.getSenha() + ","+obj.getPerfil());
+			return ResponseEntity.accepted().body(obj.getStatus()+"," + autenticar.getEmail() + "," + autenticar.getSenha() + ","+obj.getPerfil());
 		}else {
 			return ResponseEntity.badRequest().body("Login inválido");
 		}
