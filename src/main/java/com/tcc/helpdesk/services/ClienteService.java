@@ -10,6 +10,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.tcc.helpdesk.domain.Cliente;
+import com.tcc.helpdesk.dto.ClienteDTO;
 import com.tcc.helpdesk.repositories.ClienteRepository;
 import com.tcc.helpdesk.services.exceptions.DataIntegrityException;
 import com.tcc.helpdesk.services.exceptions.ObjectNotFoundException;
@@ -51,9 +52,36 @@ public class ClienteService {
 		return repo.findAll();
 	}
 	
+	public Cliente fromDTO(ClienteDTO objDto) {
+		//StatusUsuario status = StatusUsuario.toEnum(objDto.getStatus());
+		Cliente obj = find(objDto.getId());
+		obj.setNome(objDto.getNome());
+		obj.setSobrenome(objDto.getSobrenome());
+		obj.setDocumento(objDto.getDocumento());
+		obj.setSexo(objDto.getSexo());
+		obj.setDataNascimento(objDto.getDataNascimento());
+		obj.setCep(objDto.getCep());
+		obj.setLogradouro(objDto.getLogradouro());
+		obj.setNumero(objDto.getNumero());
+		obj.setComplemento(objDto.getComplemento());
+		obj.setBairro(objDto.getBairro());
+		obj.setCidade(objDto.getCidade());
+		obj.setEstado(objDto.getEstado());
+		return obj;
+	}
+	
 	private void updateData(Cliente newObj, Cliente obj) {
-		//newObj.setEmail(obj.getEmail());
-		//newObj.setPerfil(obj.getPerfil());
-		//newObj.setStatus(obj.getStatus());
+		newObj.setNome(obj.getNome());
+		newObj.setSobrenome(obj.getSobrenome());
+		newObj.setDocumento(obj.getDocumento());
+		newObj.setSexo(obj.getSexo());
+		newObj.setDataNascimento(obj.getDataNascimento());
+		newObj.setCep(obj.getCep());
+		newObj.setLogradouro(obj.getLogradouro());
+		newObj.setNumero(obj.getNumero());
+		newObj.setComplemento(obj.getComplemento());
+		newObj.setBairro(obj.getBairro());
+		newObj.setCidade(obj.getCidade());
+		newObj.setEstado(obj.getEstado());
 	}
 }

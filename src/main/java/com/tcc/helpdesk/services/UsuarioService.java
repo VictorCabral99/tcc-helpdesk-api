@@ -72,12 +72,10 @@ public class UsuarioService {
 	}
 	
 	public Usuario fromDTO(UsuarioDTO objDto) {
-		StatusUsuario status = StatusUsuario.toEnum(objDto.getStatus());
-		PerfilUsuario perfil = PerfilUsuario.toEnum(objDto.getPerfil());
 		Usuario obj = find(objDto.getId());
 		obj.setEmail(objDto.getEmail());
-		obj.setPerfil(perfil);
-		obj.setStatus(status);
+		obj.setPerfil(PerfilUsuario.toEnum(objDto.getPerfil()));
+		obj.setStatus(StatusUsuario.toEnum(objDto.getStatus()));
 		return obj;
 	}
 	
