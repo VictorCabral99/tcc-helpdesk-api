@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.Date;
 
 import com.tcc.helpdesk.domain.Cliente;
-import com.tcc.helpdesk.domain.Usuario;
 
 public class ClienteDTO implements Serializable {
 

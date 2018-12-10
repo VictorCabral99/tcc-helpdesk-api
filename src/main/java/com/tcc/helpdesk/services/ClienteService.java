@@ -26,6 +26,11 @@ public class ClienteService {
 		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: " + id + ", Tipo: " + Cliente.class.getName()));
 	}
 	
+	public Cliente findByDocument(String document) {
+		Optional<Cliente> obj = repo.findByDocument(document);
+		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Documento: " + document + ", Tipo: " + Cliente.class.getName()));
+	}
+	
 	@Transactional
 	public Cliente insert(Cliente obj) {
 		obj.setId(null);

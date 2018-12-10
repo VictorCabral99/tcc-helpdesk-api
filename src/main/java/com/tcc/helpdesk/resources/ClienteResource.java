@@ -7,7 +7,6 @@ import java.util.stream.Collectors;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,9 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.tcc.helpdesk.domain.Cliente;
-import com.tcc.helpdesk.domain.Usuario;
 import com.tcc.helpdesk.dto.ClienteDTO;
-import com.tcc.helpdesk.dto.UsuarioDTO;
 import com.tcc.helpdesk.services.ClienteService;
 
 @RestController
@@ -36,6 +33,14 @@ public class ClienteResource {
 		Cliente obj = service.find(id);
 		return ResponseEntity.ok().body(obj);
 	}
+	
+	@CrossOrigin
+	@RequestMapping(value="/document/{document}",method=RequestMethod.GET)
+	public ResponseEntity<?> find(@PathVariable String document){
+		Cliente obj = service.findByDocument(document);
+		return ResponseEntity.ok().body(obj);
+	}
+	
 	
 	@CrossOrigin
 	@RequestMapping(method=RequestMethod.POST)
