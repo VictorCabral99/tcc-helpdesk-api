@@ -3,8 +3,6 @@ package com.tcc.helpdesk.dto;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.validation.constraints.Null;
-
 import com.tcc.helpdesk.domain.Chamado;
 import com.tcc.helpdesk.domain.Cliente;
 import com.tcc.helpdesk.domain.Usuario;
