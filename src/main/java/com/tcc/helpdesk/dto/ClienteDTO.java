@@ -3,12 +3,15 @@ package com.tcc.helpdesk.dto;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.validation.constraints.Null;
+
 import com.tcc.helpdesk.domain.Cliente;
 
 public class ClienteDTO implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
+	@Null
 	private Integer id;
 	private String nome;
 	private String sobrenome;
@@ -29,7 +32,6 @@ public class ClienteDTO implements Serializable {
 	
 	public ClienteDTO(Cliente obj) {
 		super();
-		this.id = obj.getId();
 		this.nome = obj.getNome();
 		this.sobrenome = obj.getSobrenome();
 		this.documento = obj.getDocumento();
@@ -42,14 +44,6 @@ public class ClienteDTO implements Serializable {
 		this.bairro = obj.getBairro();
 		this.cidade = obj.getCidade();
 		this.estado = obj.getEstado();
-	}
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
 	}
 
 	public String getNome() {
@@ -146,5 +140,13 @@ public class ClienteDTO implements Serializable {
 
 	public void setEstado(String estado) {
 		this.estado = estado;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}	
 }

@@ -3,6 +3,8 @@ package com.tcc.helpdesk.dto;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.validation.constraints.Null;
+
 import com.tcc.helpdesk.domain.Chamado;
 import com.tcc.helpdesk.domain.Cliente;
 import com.tcc.helpdesk.domain.Usuario;
@@ -11,6 +13,7 @@ public class ChamadoDTO implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
+	@Null
 	private Integer id;
 	private Cliente cliente;
 	private Integer tipo;
