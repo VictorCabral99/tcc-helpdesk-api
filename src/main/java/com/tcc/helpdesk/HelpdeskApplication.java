@@ -47,8 +47,8 @@ public class HelpdeskApplication implements CommandLineRunner{
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		Date nascimento = sdf.parse("27/07/2006");
 		
-		Cliente customer1 = new Cliente(null,"cliente","1", "469410248-60", 1, nascimento, "06332130", "Rua Cataguá", "345", "Casa 14A", "Jardim Santa Tereza", "Carapicuiba", "SP", init, user4);
-		Cliente customer2 = new Cliente(null,"cliente","2", "148089568-70", 1, nascimento, "06332130", "Rua Cataguá", "345", "Casa 14A", "Jardim Santa Tereza", "Carapicuiba", "SP", init, user4);
+		Cliente customer1 = new Cliente(null,"cliente","1", "469.410.248-60", 1, nascimento, "06332-130", "Rua Cataguá", "345", "Casa 14A", "Jardim Santa Tereza", "Carapicuiba", "SP", init, user4);
+		Cliente customer2 = new Cliente(null,"cliente","2", "148.089.568-70", 1, nascimento, "05365-150", "Rua Cataguá", "345", "Casa 14A", "Jardim Santa Tereza", "Carapicuiba", "SP", init, user4);
 		clienteRepository.saveAll(Arrays.asList(customer1,customer2));
 		
 		Chamado chamado1 = new Chamado(null, customer1, 1, 1, user4,user3, "Como fechar o word?","Abri o word e agora não sei como fechar, vocês poderiam me explicar como fazer isso? ", init, fim);
