@@ -13,7 +13,6 @@ public class ChamadoDTO implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
-	@Null
 	private Integer id;
 	private Cliente cliente;
 	private Integer tipo;
