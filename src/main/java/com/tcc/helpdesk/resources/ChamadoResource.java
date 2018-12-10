@@ -17,11 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.tcc.helpdesk.domain.Chamado;
-import com.tcc.helpdesk.domain.Usuario;
 import com.tcc.helpdesk.domain.enums.StatusChamado;
 import com.tcc.helpdesk.dto.ChamadoDTO;
-import com.tcc.helpdesk.dto.NewUsuarioDTO;
-import com.tcc.helpdesk.dto.UsuarioDTO;
 import com.tcc.helpdesk.services.ChamadoService;
 
 @RestController
@@ -34,6 +31,15 @@ public class ChamadoResource {
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
 	public ResponseEntity<?> find(@PathVariable Integer id) {
 		Chamado obj = service.find(id);
+		return ResponseEntity.ok().body(obj);
+	}
+	
+	@CrossOrigin
+	@RequestMapping(value="/finalize/{id}", method=RequestMethod.GET)
+	public ResponseEntity<?> finalize(@PathVariable Integer id){
+		Chamado obj = service.find(id);
+		obj.setStatus(StatusChamado.SUCESS);
+		obj = service.update(obj);
 		return ResponseEntity.ok().body(obj);
 	}
 	

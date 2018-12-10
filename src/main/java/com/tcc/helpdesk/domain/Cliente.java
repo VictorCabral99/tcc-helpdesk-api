@@ -46,7 +46,7 @@ private static final long serialVersionUID = 1L;
 	
 	@JsonIgnore
 	@OneToMany(mappedBy="cliente")
-	private List<Chamado> pedidos = new ArrayList<>();
+	private List<Chamado> chamados = new ArrayList<>();
 		
 	public Cliente () {
 		//Construtor Sem Parâmetros

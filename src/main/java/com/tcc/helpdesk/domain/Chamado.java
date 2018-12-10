@@ -10,13 +10,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.tcc.helpdesk.domain.enums.StatusChamado;
 import com.tcc.helpdesk.domain.enums.TipoChamado;
-import com.tcc.helpdesk.services.ClienteService;
-import com.tcc.helpdesk.services.UsuarioService;
 
 @Entity
 public class Chamado implements Serializable {
