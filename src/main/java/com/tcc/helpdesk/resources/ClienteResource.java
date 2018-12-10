@@ -44,11 +44,11 @@ public class ClienteResource {
 	
 	@CrossOrigin
 	@RequestMapping(method=RequestMethod.POST)
-	public ResponseEntity<Void> insert(@Valid @RequestBody ClienteDTO objDto){
+	public ResponseEntity<?> insert(@Valid @RequestBody ClienteDTO objDto){
 		Cliente obj = service.fromDTO(objDto);
 		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
-		return ResponseEntity.created(uri).build();
+		return ResponseEntity.ok().body(obj);
 	}
 	
 	@CrossOrigin
