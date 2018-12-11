@@ -19,6 +19,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.tcc.helpdesk.domain.Chamado;
 import com.tcc.helpdesk.domain.enums.StatusChamado;
 import com.tcc.helpdesk.dto.ChamadoDTO;
+import com.tcc.helpdesk.dto.ResponsavelChamadoDTO;
+import com.tcc.helpdesk.dto.StatusChamadoDTO;
 import com.tcc.helpdesk.services.ChamadoService;
 
 @RestController
@@ -58,6 +60,24 @@ public class ChamadoResource {
 	public ResponseEntity<Void> update(@Valid @RequestBody ChamadoDTO objDto, @PathVariable Integer id){
 		Chamado obj = service.fromDTO(objDto);
 		obj.setId(id);
+		obj = service.update(obj);
+		return ResponseEntity.noContent().build();
+	}
+	
+	@CrossOrigin
+	@RequestMapping(value="/status", method=RequestMethod.PUT)
+	public ResponseEntity<Void> status(@Valid @RequestBody StatusChamadoDTO objDto){
+		Chamado obj = service.fromDTO(objDto);
+		obj.setId(objDto.getId());
+		obj = service.update(obj);
+		return ResponseEntity.noContent().build();
+	}
+	
+	@CrossOrigin
+	@RequestMapping(value="/responsavel", method=RequestMethod.PUT)
+	public ResponseEntity<Void> status(@Valid @RequestBody ResponsavelChamadoDTO objDto){
+		Chamado obj = service.fromDTO(objDto);
+		obj.setId(objDto.getId());
 		obj = service.update(obj);
 		return ResponseEntity.noContent().build();
 	}

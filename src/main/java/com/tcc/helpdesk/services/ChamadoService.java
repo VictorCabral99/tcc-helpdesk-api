@@ -13,6 +13,8 @@ import com.tcc.helpdesk.domain.Chamado;
 import com.tcc.helpdesk.domain.enums.StatusChamado;
 import com.tcc.helpdesk.domain.enums.TipoChamado;
 import com.tcc.helpdesk.dto.ChamadoDTO;
+import com.tcc.helpdesk.dto.ResponsavelChamadoDTO;
+import com.tcc.helpdesk.dto.StatusChamadoDTO;
 import com.tcc.helpdesk.repositories.ChamadoRepository;
 import com.tcc.helpdesk.services.exceptions.DataIntegrityException;
 import com.tcc.helpdesk.services.exceptions.ObjectNotFoundException;
@@ -63,6 +65,18 @@ public class ChamadoService {
 		obj.setTitulo(objDto.getTitulo());
 		obj.setDescricao(objDto.getDescricao());
 		obj.setDataFinalizacao(objDto.getDataFinalizacao());
+		return obj;
+	}
+	
+	public Chamado fromDTO(StatusChamadoDTO objDto) {
+		Chamado obj = find(objDto.getId());
+		obj.setStatus(StatusChamado.toEnum(objDto.getStatus()));
+		return obj;
+	}
+	
+	public Chamado fromDTO(ResponsavelChamadoDTO objDto) {
+		Chamado obj = find(objDto.getId());
+		obj.setUsuarioResponsavel(objDto.getUsuarioResponsavel());
 		return obj;
 	}
 	
